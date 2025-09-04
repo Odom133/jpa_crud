@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: jpa
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpa_order?useSSL=false&serverTimezone=UTC
+    username: root
+    password: Pa$$w0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver
