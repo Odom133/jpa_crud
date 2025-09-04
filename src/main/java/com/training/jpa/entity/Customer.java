@@ -1,11 +1,18 @@
 package com.training.jpa.entity;// Customer.java
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "customers")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
