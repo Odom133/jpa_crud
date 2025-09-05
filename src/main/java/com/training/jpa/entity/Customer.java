@@ -28,5 +28,5 @@ public class Customer {
     private String address;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders;
+    private List<Orders> orders;
 }
