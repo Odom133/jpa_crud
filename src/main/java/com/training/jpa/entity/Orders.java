@@ -20,10 +20,6 @@ public class Orders {
     @Column(name = "customer_id" , nullable = false)
     private Integer customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", updatable = false, insertable = false)
-    private Customer customer;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus status;  // could be Enum instead
 
@@ -32,9 +28,4 @@ public class Orders {
 
     private LocalDateTime orderDate = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Payment> payments;
 }

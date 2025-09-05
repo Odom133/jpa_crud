@@ -26,6 +26,4 @@ public class Product {
 
     private Integer stockQuantity;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
 }

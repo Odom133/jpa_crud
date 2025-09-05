@@ -6,7 +6,6 @@ import com.training.jpa.model.enums.OrderStatus;
 import java.util.List;
 
 public record OrdersRequest(
-
         Integer customerId,
         OrderStatus status,
         List<OrderLineRequest> lines

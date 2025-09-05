@@ -16,21 +16,13 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderItemId;
 
-    @Column(nullable = false)
+    @Column(name = "order_id",nullable = false)
     private Integer orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Orders orders;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private Integer quantity;
 
     @Column(name = "product_id", nullable = false)
-    private Product productId;
-
-    private Integer quantity;
+    private Integer productId;
 
     @Column(columnDefinition = "DECIMAL(10,2)")
     private Double price;

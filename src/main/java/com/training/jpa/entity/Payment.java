@@ -12,11 +12,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Orders orders;
-
-
     @Column(columnDefinition = "DECIMAL(10,2)")
     private Double amount;
 

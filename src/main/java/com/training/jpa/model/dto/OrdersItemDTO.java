@@ -13,7 +13,7 @@ import lombok.Setter;
 public class OrdersItemDTO {
     private Integer ordersItemId;
     private Integer ordersId;
-    private Product productId;
+    private Integer productId;
     private Integer quantity;
     private Double price;
 

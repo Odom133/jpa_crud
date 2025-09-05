@@ -4,6 +4,7 @@ import com.training.jpa.entity.OrderItem;
 import com.training.jpa.entity.Orders;
 import com.training.jpa.model.dto.OrdersDTO;
 import com.training.jpa.model.request.OrdersRequest;
+import com.training.jpa.repository.OrdersItemRepository;
 import com.training.jpa.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OrdersService {
 
     private final OrdersRepository ordersRepository;
-//    private final OrderIte
+    private final OrdersItemRepository ordersItemRepository;
 
     @Transactional
     public OrdersDTO createOrder(OrdersRequest request){
@@ -43,6 +44,8 @@ public class OrdersService {
                     .build();
         }).toList();
 
+        ordersItemRepository.saveAll(lines);
+
 
         return new OrdersDTO(ordersCreated);
     }
@@ -61,7 +64,7 @@ public class OrdersService {
     public OrdersDTO updateOrder(Integer ordersId, OrdersRequest request){
         Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new RuntimeException("Order not found!"));
         orders.setCustomerId(request.customerId());
-        orders.setTotalAmount(request.lines().getLast().total());
+//        orders.setTotalAmount(request.);
         orders.setStatus(request.status());
 
         return new OrdersDTO(ordersRepository.save(orders));
