@@ -3,6 +3,7 @@ package com.training.jpa.service;
 import com.training.jpa.entity.OrderItem;
 import com.training.jpa.entity.Orders;
 import com.training.jpa.model.dto.OrdersDTO;
+import com.training.jpa.model.dto.OrdersItemDTO;
 import com.training.jpa.model.request.OrdersRequest;
 import com.training.jpa.repository.OrdersItemRepository;
 import com.training.jpa.repository.OrdersRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,14 +40,13 @@ public class OrdersService {
         List<OrderItem> lines = request.lines().stream().map(line -> {
             return OrderItem.builder()
                     .orderId(ordersCreated.getOrderId())
-                    .orderItemId(line.itemId())
+                    .productId(line.itemId())
                     .quantity(line.qty())
                     .price(line.price())
                     .build();
         }).toList();
 
-        ordersItemRepository.saveAll(lines);
-
+        ordersItemRepository.saveAllAndFlush(lines);
 
         return new OrdersDTO(ordersCreated);
     }
@@ -55,10 +56,20 @@ public class OrdersService {
         return ordersRepository.findAll().stream().map(OrdersDTO::new).toList();
     }
 
-    @Transactional(readOnly = true)
-    public OrdersDTO getById(Integer ordersId){
-        return ordersRepository.findById(ordersId).map(OrdersDTO::new).orElseThrow(() -> new RuntimeException("Order not found!"));
-    }
+//    @Transactional(readOnly = true)
+//    public OrdersDTO getById(Integer ordersId){
+//        return ordersRepository.findById(ordersId).map(OrdersDTO::new).orElseThrow(() -> new RuntimeException("Order not found!"));
+//    }
+
+//    @Transactional(readOnly = true)
+//    public OrdersDTO getById(Integer ordersId){
+//        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new RuntimeException("Order not found!"));
+//
+//        OrdersDTO ordersDTO = new OrdersDTO();
+//        ordersDTO.setOrderId(orders.getOrderId());
+//        ordersDTO.setCustomerId(orders.getCustomerId());
+//
+//    }
 
     @Transactional
     public OrdersDTO updateOrder(Integer ordersId, OrdersRequest request){
@@ -75,6 +86,14 @@ public class OrdersService {
         ordersRepository.findById(ordersId).orElseThrow(() -> new RuntimeException("Order not found!"));
         ordersRepository.deleteById(ordersId);
     }
+
+    // OrdersItemList
+    @Transactional(readOnly = true)
+    public List<OrdersItemDTO> OrdersItemList(){
+        return ordersItemRepository.findAll().stream().map(OrdersItemDTO::new).toList();
+    }
+
+    // get OrdersItem by Id
 
 
 }

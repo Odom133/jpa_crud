@@ -1,17 +1,19 @@
 package com.training.jpa.entity;// Order.java
 import com.training.jpa.model.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "orders")
+@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Builder
+
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

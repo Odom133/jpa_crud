@@ -2,7 +2,6 @@ package com.training.jpa.model.dto;
 
 
 import com.training.jpa.entity.OrderItem;
-import com.training.jpa.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,14 +10,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class OrdersItemDTO {
-    private Integer ordersItemId;
+    private Integer order_item_id;
     private Integer ordersId;
     private Integer productId;
     private Integer quantity;
     private Double price;
 
     public OrdersItemDTO(OrderItem ordersItem) {
-        this.ordersItemId = ordersItem.getOrderItemId();
+        this.order_item_id = ordersItem.getOrder_item_id();
         this.ordersId = ordersItem.getOrderId();
         this.productId = ordersItem.getProductId();
         this.quantity = ordersItem.getQuantity();

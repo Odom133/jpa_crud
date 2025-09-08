@@ -1,8 +1,8 @@
 package com.training.jpa.controller;
 
 
-import com.training.jpa.entity.Orders;
 import com.training.jpa.model.dto.OrdersDTO;
+import com.training.jpa.model.dto.OrdersItemDTO;
 import com.training.jpa.model.request.OrdersRequest;
 import com.training.jpa.service.OrdersService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,8 @@ public class OrdersController {
         return ordersService.OrdersList();
     }
 
+
+
     // get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -51,6 +53,14 @@ public class OrdersController {
     @ResponseStatus(HttpStatus.OK)
     public OrdersDTO update(@PathVariable("id") Integer ordersId, @RequestBody OrdersRequest request){
         return ordersService.updateOrder(ordersId, request);
+    }
+
+    // ordersItemList
+
+    @GetMapping("/ordersItemList")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrdersItemDTO> ordersItemList(){
+        return ordersService.OrdersItemList();
     }
 
 }

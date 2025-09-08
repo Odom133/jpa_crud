@@ -1,20 +1,17 @@
 package com.training.jpa.entity;// OrderItem.java
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @Entity
 @Table(name = "order_items")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer orderItemId;
+    private Integer order_item_id;
 
     @Column(name = "order_id",nullable = false)
     private Integer orderId;
@@ -26,4 +23,5 @@ public class OrderItem {
 
     @Column(columnDefinition = "DECIMAL(10,2)")
     private Double price;
+
 }
