@@ -4,6 +4,7 @@ package com.training.jpa.controller;
 import com.training.jpa.model.dto.OrdersDTO;
 import com.training.jpa.model.dto.OrdersItemDTO;
 import com.training.jpa.model.request.OrdersRequest;
+import com.training.jpa.model.response.ListOrderDTO;
 import com.training.jpa.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,14 +33,14 @@ public class OrdersController {
         return ordersService.OrdersList();
     }
 
-
-
     // get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrdersDTO get(@PathVariable("id") Integer ordersId){
+    public ListOrderDTO get(@PathVariable("id") Integer ordersId){
         return ordersService.getById(ordersId);
     }
+
+
 
     // delete
     @DeleteMapping("/{id}")

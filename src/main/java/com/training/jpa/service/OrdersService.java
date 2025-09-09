@@ -5,13 +5,13 @@ import com.training.jpa.entity.Orders;
 import com.training.jpa.model.dto.OrdersDTO;
 import com.training.jpa.model.dto.OrdersItemDTO;
 import com.training.jpa.model.request.OrdersRequest;
+import com.training.jpa.model.response.ListOrderDTO;
 import com.training.jpa.repository.OrdersItemRepository;
 import com.training.jpa.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +21,6 @@ public class OrdersService {
 
     private final OrdersRepository ordersRepository;
     private final OrdersItemRepository ordersItemRepository;
-
     @Transactional
     public OrdersDTO createOrder(OrdersRequest request){
 
@@ -60,16 +59,16 @@ public class OrdersService {
 //    public OrdersDTO getById(Integer ordersId){
 //        return ordersRepository.findById(ordersId).map(OrdersDTO::new).orElseThrow(() -> new RuntimeException("Order not found!"));
 //    }
+    @Transactional(readOnly = true)
+    public ListOrderDTO getById(Integer ordersId){
+        Orders orders = ordersRepository.findById(ordersId)
+                .orElseThrow(() -> new RuntimeException("order not found!"));
 
-//    @Transactional(readOnly = true)
-//    public OrdersDTO getById(Integer ordersId){
-//        Orders orders = ordersRepository.findById(ordersId).orElseThrow(() -> new RuntimeException("Order not found!"));
-//
-//        OrdersDTO ordersDTO = new OrdersDTO();
-//        ordersDTO.setOrderId(orders.getOrderId());
-//        ordersDTO.setCustomerId(orders.getCustomerId());
-//
-//    }
+        OrdersDTO ordersDTO = new OrdersDTO(orders);
+        List<OrdersItemDTO> itemsDTO = ordersItemRepository.findAllByOrderId(ordersId).stream().map(OrdersItemDTO::new).toList();
+        return new ListOrderDTO(ordersDTO, itemsDTO);
+
+    }
 
     @Transactional
     public OrdersDTO updateOrder(Integer ordersId, OrdersRequest request){
@@ -93,7 +92,6 @@ public class OrdersService {
         return ordersItemRepository.findAll().stream().map(OrdersItemDTO::new).toList();
     }
 
-    // get OrdersItem by Id
 
 
 }
